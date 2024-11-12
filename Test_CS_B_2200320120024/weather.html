@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 45px;
+      }
+      input,
+      button {
+        padding: 10px;
+        margin: 5px;
+      }
+      .weather-info {
+        margin-top: 20px;
+        font-size: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Weather</h1>
+    <form id="weather">
+      <input
+        type="text"
+        id="city"
+        placeholder="Enter city name"
+        required
+      /><br />
+      <button type="submit">Get Weather</button>
+    </form>
+    <div id="weatherResult" class="weather-report"></div>
+
+    <script>
+      document
+        .getElementById("weather")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const cityName = document.getElementById("city").value;
+          const apiKey = "bd5d6db1c55613f81c60eed85271139e";
+          const apiUrl = `https:/api.openweathermap.org/data/2.5/weather?q=${cityName},IN&appid=${apiKey}&units=metric`;
+
+          try {
+            const response = await fetch(apiUrl);
+            if (!response.ok) throw new Error("City not found");
+
+            const data = await response.json();
+            const maxTemp = data.main.temp_max;
+            const minTemp = data.main.temp_min;
+            const Humidity = data.main.humidity;
+            const Windspeed = data.wind.speed;
+
+            document.getElementById("weatherResult").innerHTML = `
+          <p><strong>City:</strong> ${data.name}</p>
+          <p><strong>Max Temperature:</strong> ${maxTemp}°C</p>
+          <p><strong>Min Temperature:</strong> ${minTemp}°C</p>
+          <p><strong>Humidity:</strong> ${Humidity}</p>
+          <p><strong>Wind:</strong> ${Windspeed}</p>
+        `;
+          } catch (error) {
+            document.getElementById("weatherResult").innerHTML =
+              "<p>There is some error</p>";
+          }
+        });
+    </script>
+  </body>
+</html>
