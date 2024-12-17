@@ -1,0 +1,11 @@
+nav{
+  background-color: gold;
+}
+nav ul{
+  list-style-type: none;
+  display: flex;
+  justify-content: space-evenly;
+}
+li a{
+  text-decoration: none;
+}
