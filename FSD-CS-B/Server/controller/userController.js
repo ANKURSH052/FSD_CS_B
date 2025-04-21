@@ -12,8 +12,8 @@ const getAllUsers=async(req,res)=>{
 }
 const getUser=async(req,res)=>{
     try{
-        const email=req.params.email
-        const users=await User.find({email});
+        const email=req.params.email;
+        const user=await User.findOne({email});
         res.status(200).json(user);
     }
     catch(err){
