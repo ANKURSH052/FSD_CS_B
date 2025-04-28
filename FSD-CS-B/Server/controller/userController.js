@@ -31,10 +31,10 @@ const createUser = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
 
-    // Validation (optional)
-    if (!name || !email || !password || !role) {
-      return res.status(400).json({ message: "All fields are required" });
-    }
+    // // Validation (optional)
+    // if (!name || !email || !password || !role) {
+    //   return res.status(400).json({ message: "All fields are required" });
+    // }
 
     const newUser = new User({ name, email, password, role });
     await newUser.save();
